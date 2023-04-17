@@ -1,0 +1,45 @@
+{
+	"info": {
+		"_postman_id": "b7a28408-d442-4e60-9f57-ded375bef429",
+		"name": "Attribute Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21417298"
+	},
+	"item": [
+		{
+			"name": "Get Attribute",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/attribute/:attributeid",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"attribute",
+						":attributeid"
+					],
+					"variable": [
+						{
+							"key": "attributeid",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

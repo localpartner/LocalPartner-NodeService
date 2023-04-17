@@ -1,0 +1,217 @@
+{
+	"info": {
+		"_postman_id": "a3a39122-b0dd-4196-9390-f8f825aaaac4",
+		"name": "Special/Featured Product List",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21417298"
+	},
+	"item": [
+		{
+			"name": "User Token Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"access_token\", jsonData.accessToken);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "secret",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "FE_WEB",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Portal",
+						"value": "user",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "admin@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Test@123",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/oauth/token",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Featured Product List",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"products\":\r\n    [\r\n        {\r\n        \"isFeatured\": true,\r\n        \"isSpecial\": false,\r\n        \"code\": \"iphone17\",\r\n        \"storeId\": \"store01\",\r\n        \"storeName\": \"Store Zero One\"\r\n        },\r\n        {\r\n        \"isFeatured\": true,\r\n        \"isSpecial\": true,\r\n        \"code\": \"iphone15\",\r\n        \"storeId\": \"store01\",\r\n        \"storeName\": \"Store Zero One\"\r\n        },\r\n        {\r\n        \"isFeatured\": false,\r\n        \"isSpecial\": true,\r\n        \"code\": \"iphone11\",\r\n        \"storeId\": \"store01\",\r\n        \"storeName\": \"Store Zero One\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/prodmgmt/admin/featured/product",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"prodmgmt",
+						"admin",
+						"featured",
+						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Admin Featured Product List",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/prodmgmt/admin/featured/product/",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"prodmgmt",
+						"admin",
+						"featured",
+						"product",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get FrontEnd Featured Product List",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api//fe/product/featured/list",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"",
+						"fe",
+						"product",
+						"featured",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get FrontEnd Special Product List",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api//fe/product/special/list",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"",
+						"fe",
+						"product",
+						"special",
+						"list"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

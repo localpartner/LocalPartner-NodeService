@@ -1,0 +1,580 @@
+{
+	"info": {
+		"_postman_id": "87d153f0-c0f7-48eb-b83a-623002d498bd",
+		"name": "User Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21417298"
+	},
+	"item": [
+		{
+			"name": "User Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"access_token\", jsonData.accessToken);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "secret",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "FE_WEB",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Portal",
+						"value": "user",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "Test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Test@123",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/oauth/token",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Role",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"roleName\":\"Store Keeper\",\r\n    \"accessModules\":[\"store\",\"products\"]    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/usermgmt/store/:storedid/role",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"usermgmt",
+						"store",
+						":storedid",
+						"role"
+					],
+					"variable": [
+						{
+							"key": "storedid",
+							"value": "{{storedId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Role",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"roleName\":\"Store Manager\",\r\n    \"accessModules\":[\"products\",\"payment\"]    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/usermgmt/store/:storedid/role/:roleid",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"usermgmt",
+						"store",
+						":storedid",
+						"role",
+						":roleid"
+					],
+					"variable": [
+						{
+							"key": "storedid",
+							"value": "{{storedId}}"
+						},
+						{
+							"key": "roleid",
+							"value": "62d8d093de26c99a3312bae0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Role List",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/usermgmt/store/:storedid/role/list",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"usermgmt",
+						"store",
+						":storedid",
+						"role",
+						"list"
+					],
+					"variable": [
+						{
+							"key": "storedid",
+							"value": "{{storedId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/usermgmt/store/:storedid/role/:roleid",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"usermgmt",
+						"store",
+						":storedid",
+						"role",
+						":roleid"
+					],
+					"variable": [
+						{
+							"key": "storedid",
+							"value": "{{storedId}}"
+						},
+						{
+							"key": "roleid",
+							"value": "62d8d093de26c99a3312bae0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Role",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/usermgmt/store/:storedid/role/:roleid",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"usermgmt",
+						"store",
+						":storedid",
+						"role",
+						":roleid"
+					],
+					"variable": [
+						{
+							"key": "storedid",
+							"value": "{{storedId}}"
+						},
+						{
+							"key": "roleid",
+							"value": "62d692ae298e838e5f022190"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\":\"Test FirstName 6\",\r\n    \"lastName\":\"Test LastName 6\",\r\n    \"email\":\"Testuser33@test.com\",\r\n    \"password\":\"Test@123\",\r\n    \"mobile\":8888788887,\r\n    \"roleId\":\"62df8310881441717c93faac\"    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/usermgmt/store/:storedid/user",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"usermgmt",
+						"store",
+						":storedid",
+						"user"
+					],
+					"variable": [
+						{
+							"key": "storedid",
+							"value": "{{storedId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User List",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/usermgmt/store/:storedid/user/list",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"usermgmt",
+						"store",
+						":storedid",
+						"user",
+						"list"
+					],
+					"variable": [
+						{
+							"key": "storedid",
+							"value": "{{storedId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/usermgmt/store/:storedid/user/:userid",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"usermgmt",
+						"store",
+						":storedid",
+						"user",
+						":userid"
+					],
+					"variable": [
+						{
+							"key": "storedid",
+							"value": "{{storedId}}"
+						},
+						{
+							"key": "userid",
+							"value": "62d62da3268b798131a8a6d7"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\":\"Sushrut\",\r\n    \"lastName\":\"Randive\",    \r\n    \"password\":\"Test@123\",\r\n    \"mobile\":8888788880,\r\n    \"roleId\":\"62d8d093de26c99a3312bae0\"    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/usermgmt/store/:storedid/user/:userid",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"usermgmt",
+						"store",
+						":storedid",
+						"user",
+						":userid"
+					],
+					"variable": [
+						{
+							"key": "storedid",
+							"value": "{{storedId}}"
+						},
+						{
+							"key": "userid",
+							"value": "62d62da3268b798131a8a6d7"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User Status",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"active\":true   \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/usermgmt/store/:storedid/user/:userid/status",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"usermgmt",
+						"store",
+						":storedid",
+						"user",
+						":userid",
+						"status"
+					],
+					"variable": [
+						{
+							"key": "storedid",
+							"value": "{{storedId}}"
+						},
+						{
+							"key": "userid",
+							"value": "62d62da3268b798131a8a6d7"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\":\"Sushrut\",\r\n    \"lastName\":\"Randive\",    \r\n    \"password\":\"Test@1234\",\r\n    \"mobile\":8888788880,\r\n    \"roleId\":\"62d8d093de26c99a3312bae0\"    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/usermgmt/store/:storedid/user/:userid",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"usermgmt",
+						"store",
+						":storedid",
+						"user",
+						":userid"
+					],
+					"variable": [
+						{
+							"key": "storedid",
+							"value": "{{storedId}}"
+						},
+						{
+							"key": "userid",
+							"value": "62d62da3268b798131a8a6d7"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

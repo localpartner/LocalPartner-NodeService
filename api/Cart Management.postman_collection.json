@@ -1,0 +1,375 @@
+{
+	"info": {
+		"_postman_id": "d5b00540-e8c5-499c-924e-85948e7b8a7c",
+		"name": "Cart Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21417298"
+	},
+	"item": [
+		{
+			"name": "User Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"access_token\", jsonData.accessToken);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "secret",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "FE_WEB",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Portal",
+						"value": "user",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "admin@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Test@123",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/oauth/token",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Cart",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"items\": [\r\n        {\r\n        \"productCode\": \"prodcode1 upd1\",\r\n        \"optionName\": \"optionName1\",\r\n        \"optionValue\": \"optionValue1\",\r\n        \"units\": \"3\"\r\n        },\r\n        {\r\n        \"productCode\": \"prodcode2 upd1\",\r\n        \"optionName\": \"optionName2\",\r\n        \"optionValue\": \"optionValue2\",\r\n        \"units\": \"5\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/customer/:mobile/cart",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"customer",
+						":mobile",
+						"cart"
+					],
+					"variable": [
+						{
+							"key": "mobile",
+							"value": "1234567890"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Update Cart",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"items\": [\r\n        {\r\n        \"productCode\": \"prodcode1 upd2\",\r\n        \"optionName\": \"optionName1\",\r\n        \"optionValue\": \"optionValue1\",\r\n        \"units\": \"3\"\r\n        },\r\n        {\r\n        \"productCode\": \"prodcode2 upd2\",\r\n        \"optionName\": \"optionName2\",\r\n        \"optionValue\": \"optionValue2\",\r\n        \"units\": \"5\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/customer/:mobile/cart",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"customer",
+						":mobile",
+						"cart"
+					],
+					"variable": [
+						{
+							"key": "mobile",
+							"value": "1234567890"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Cart By CartID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/cart/:cartid",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"cart",
+						":cartid"
+					],
+					"variable": [
+						{
+							"key": "cartid",
+							"value": "63a1f1ff38fdb2818adf1839"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Cart By Mobile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/customer/:mobile/cart",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"customer",
+						":mobile",
+						"cart"
+					],
+					"variable": [
+						{
+							"key": "mobile",
+							"value": "1234567890"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Cart",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"mobile\":1234567895,\n    \"items\": [\n        {\n        \"productCode\": \"prodcode1\",\n        \"optionName\": \"optionName1\",\n        \"optionValue\": \"optionValue1\",\n        \"units\": \"3\"\n        },\n        {\n        \"productCode\": \"prodcode2\",\n        \"optionName\": \"optionName2\",\n        \"optionValue\": \"optionValue2\",\n        \"units\": \"5\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/cart/:cartid",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"cart",
+						":cartid"
+					],
+					"variable": [
+						{
+							"key": "cartid",
+							"value": "6395399706cc0706c0627678"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Cart Status",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\":true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/cart/:cartid/status",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"cart",
+						":cartid",
+						"status"
+					],
+					"variable": [
+						{
+							"key": "cartid",
+							"value": "63960fbb5afe6b95fc635ebc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Cart",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/cart/:cartid",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"cart",
+						":cartid"
+					],
+					"variable": [
+						{
+							"key": "cartid",
+							"value": "639539535081ef41135af0c3"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

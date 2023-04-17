@@ -1,0 +1,540 @@
+{
+	"info": {
+		"_postman_id": "5fd0d34a-25c5-48c9-a536-225fd6c437e8",
+		"name": "Category Management Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21417298"
+	},
+	"item": [
+		{
+			"name": "User Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"access_token\", jsonData.accessToken);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "secret",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "FE_WEB",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Portal",
+						"value": "user",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "admin@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Test@123",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/oauth/token",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Categories",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/category/list?fetch=all",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"category",
+						"list"
+					],
+					"query": [
+						{
+							"key": "fetch",
+							"value": "all"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Category",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"PCs\",\r\n    \"code\":\"Computers\",\r\n    \"description\":\"Computers Category\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/category",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"category"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Sub Category",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Apple\",\r\n    \"code\":\"Apple\",\r\n    \"description\":\"Apple Computers\"\r\n   \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/category/:category/subcategory",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"category",
+						":category",
+						"subcategory"
+					],
+					"variable": [
+						{
+							"key": "category",
+							"value": "COMPUTERS"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Category By Code",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/category/:code",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"category",
+						":code"
+					],
+					"variable": [
+						{
+							"key": "code",
+							"value": "COMPUTERS"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Sub Category By Code",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/category/:code/subcategory/:subcode",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"category",
+						":code",
+						"subcategory",
+						":subcode"
+					],
+					"variable": [
+						{
+							"key": "code",
+							"value": "COMPUTERS"
+						},
+						{
+							"key": "subcode",
+							"value": "APPLE"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete  Category By Code",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/category/:code",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"category",
+						":code"
+					],
+					"variable": [
+						{
+							"key": "code",
+							"value": "COMPUTERS"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Sub Category By Code",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/category/:code/subcategory/:subcode",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"category",
+						":code",
+						"subcategory",
+						":subcode"
+					],
+					"variable": [
+						{
+							"key": "code",
+							"value": "MOBILES"
+						},
+						{
+							"key": "subcode",
+							"value": "FICTION"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Category",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Computers\",\r\n    \"description\": \"Personal Computers\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/category/:code",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"category",
+						":code"
+					],
+					"variable": [
+						{
+							"key": "code",
+							"value": "COMPUTERS"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Sub Category",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"MacBook\",\r\n    \"description\": \"Apple Mackbook\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/category/:code/subcategory/:subcode",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"category",
+						":code",
+						"subcategory",
+						":subcode"
+					],
+					"variable": [
+						{
+							"key": "code",
+							"value": "COMPUTERS"
+						},
+						{
+							"key": "subcode",
+							"value": "APPLE"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Category Status",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"status\": false\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/category/:code/status",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"category",
+						":code",
+						"status"
+					],
+					"variable": [
+						{
+							"key": "code",
+							"value": "COMPUTERS"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Sub Category Status",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"status\": true    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/category/:code/subcategory/:subcode/status",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"category",
+						":code",
+						"subcategory",
+						":subcode",
+						"status"
+					],
+					"variable": [
+						{
+							"key": "code",
+							"value": "COMPUTERS"
+						},
+						{
+							"key": "subcode",
+							"value": "APPLE"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

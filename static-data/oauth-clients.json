@@ -1,0 +1,11 @@
+{
+   
+    "id": "FE_WEB",
+    "clientId": "FE_WEB",
+    "clientSecret": "secret",
+    "grants": [
+        "password",
+        "refresh_token"
+    ],
+    "redirectUris": []
+}

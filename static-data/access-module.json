@@ -1,0 +1,34 @@
+[
+    {   
+        "name": "product",
+        "label": "Product Management"
+    },
+    {
+        "name": "customer",
+        "label": "Customer Management"
+    },
+    {
+        "name": "payment",
+        "label": "Payment Management"
+    },
+    {
+        "name": "users",
+        "label": "User Management"
+    },
+    {
+        "name": "store",
+        "label": "Store Management"
+    },
+    {
+        "name": "orders",
+        "label": "Orders Manangement"
+    },
+    {
+        "name": "notification",
+        "label": "Notification"
+    },
+    {
+        "name": "reports",
+        "label": "Report Management"
+    }
+]

@@ -1,0 +1,23 @@
+{
+    "_id": {
+        "$oid": "62d13fabab461b9e265b9a03"
+    },
+    "details": {
+        "$oid": "62d25c8dab461b9e265b9a31"
+    },
+    "email": "admin@gmail.com",
+    "password": "$2a$10$dVUYjSaO2pn38viInxD2tODWLgsT3lGuP69mU0JzHN6cMMNlIfejO",
+    "active": true,
+    "type": "ADMIN",
+    "isDeleted": false,
+    "createdAt": {
+        "$date": {
+            "$numberLong": "946665000000"
+        }
+    },
+    "updatedAt": {
+        "$date": {
+            "$numberLong": "1657901200777"
+        }
+    }
+}

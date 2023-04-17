@@ -1,0 +1,380 @@
+{
+	"info": {
+		"_postman_id": "1fd24194-5610-4321-beab-d721d5572f04",
+		"name": "Order Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21417298"
+	},
+	"item": [
+		{
+			"name": "User Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"access_token\", jsonData.accessToken);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "secret",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "FE_WEB",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Portal",
+						"value": "user",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "admin@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Test@123",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/oauth/token",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Order",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"billingAddress\":\r\n    {\r\n        \"addressLine1\": \"333 Kasba Peth\",\r\n        \"addressLine2\": \"Phadke Houd Chowk\",\r\n        \"city\": \"Pune\",\r\n        \"state\": \"Maharashtra\",\r\n        \"pincode\": \"411030\",\r\n        \"country\": \"India\"\r\n    },\r\n    \"shippingAddress\": \r\n    {\r\n        \"addressLine1\": \"333 Kasba Peth\",\r\n        \"addressLine2\": \"Phadke Houd Chowk\",\r\n        \"city\": \"Pune\",\r\n        \"state\": \"Maharashtra\",\r\n        \"pincode\": \"411030\",\r\n        \"country\": \"India\"\r\n    },\r\n    \"paymentDetails\": \r\n    {\r\n        \"paymentType\": \"Card\",\r\n        \"paymentCardHolderName\": \"First Last\",\r\n        \"paymentCardNumber\": \"1234\",\r\n        \"paymentAmount\": \"200\"\r\n    },\r\n    \"products\": \r\n    [\r\n        {\r\n        \"code\": \"prodcode1 upd1\",\r\n        \"quantity\": \"3\",\r\n        \"unitPrice\": \"100\"\r\n        },\r\n        {\r\n        \"code\": \"prodcode2 upd1\",\r\n        \"quantity\": \"3\",\r\n        \"unitPrice\": \"200\",\r\n        \"optionName\": \"Color\",\r\n        \"optionValue\": \"Gold\"\r\n        }\r\n    ],\r\n    \"orderTotal\": \"5000\",\r\n    \"orderStatus\": \"Not Processed\",\r\n    \"orderNotes\" : \"In Transit\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/ordermgmt/:mobile/order",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"ordermgmt",
+						":mobile",
+						"order"
+					],
+					"variable": [
+						{
+							"key": "mobile",
+							"value": "1234567893"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Orders for Mobile",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/ordermgmt/:mobile/order/list",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"ordermgmt",
+						":mobile",
+						"order",
+						"list"
+					],
+					"variable": [
+						{
+							"key": "mobile",
+							"value": "1234567893"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Orders by Mobile, OrderID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/ordermgmt/:mobile/order/:orderId",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"ordermgmt",
+						":mobile",
+						"order",
+						":orderId"
+					],
+					"variable": [
+						{
+							"key": "mobile",
+							"value": "1234567893"
+						},
+						{
+							"key": "orderId",
+							"value": "7"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Order by Mobile, OrderID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"billingAddress\":\n    {\n        \"addressLine1\": \"333 Kasba Peth\",\n        \"addressLine2\": \"Phadke Houd Chowk\",\n        \"city\": \"Pune\",\n        \"state\": \"Maharashtra\",\n        \"pincode\": \"411030\",\n        \"country\": \"India\"\n    },\n    \"shippingAddress\": \n    {\n        \"addressLine1\": \"333 Kasba Peth\",\n        \"addressLine2\": \"Phadke Houd Chowk\",\n        \"city\": \"Pune\",\n        \"state\": \"Maharashtra\",\n        \"pincode\": \"411030\",\n        \"country\": \"India\"\n    },\n    \"paymentDetails\": \n    {\n        \"paymentType\": \"Card\",\n        \"paymentCardHolderName\": \"First Last\",\n        \"paymentCardNumber\": \"1234\",\n        \"paymentAmount\": \"200\"\n    },\n    \"products\": \n    [\n        {\n        \"code\": \"prodcode1 upd1\",\n        \"quantity\": \"3\",\n        \"unitPrice\": \"100\"\n        },\n        {\n        \"code\": \"prodcode2 upd1\",\n        \"quantity\": \"3\",\n        \"unitPrice\": \"200\",\n        \"optionName\": \"Color\",\n        \"optionValue\": \"Gold\"\n        }\n    ],\n    \"orderTotal\": \"7000\",\n    \"orderStatus\": \"Not Processed\",\n    \"orderNotes\" : \"In Transit\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/ordermgmt/:mobile/order/:orderId",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"ordermgmt",
+						":mobile",
+						"order",
+						":orderId"
+					],
+					"variable": [
+						{
+							"key": "mobile",
+							"value": "1234567893"
+						},
+						{
+							"key": "orderId",
+							"value": "7"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Order Status by Mobile, OrderID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\" : \"false\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/ordermgmt/:mobile/order/:orderId/status",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"ordermgmt",
+						":mobile",
+						"order",
+						":orderId",
+						"status"
+					],
+					"variable": [
+						{
+							"key": "mobile",
+							"value": "1234567893"
+						},
+						{
+							"key": "orderId",
+							"value": "7"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Order by Mobile, OrderID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\" : \"True\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/ordermgmt/:mobile/order/:orderId/",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"ordermgmt",
+						":mobile",
+						"order",
+						":orderId",
+						""
+					],
+					"variable": [
+						{
+							"key": "mobile",
+							"value": "1234567893"
+						},
+						{
+							"key": "orderId",
+							"value": "7"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
